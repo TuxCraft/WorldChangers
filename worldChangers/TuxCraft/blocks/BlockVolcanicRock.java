@@ -16,11 +16,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockVolcanicRock extends Block
 {
 
-	public BlockVolcanicRock(int id)
+	private String textureName;
+	
+	public BlockVolcanicRock(int id, String s)
 	{
 
 		super(id, Material.rock);
 		this.setCreativeTab(CreativeTabs.tabBlock);
+		this.textureName = s;
+	    this.setUnlocalizedName(s);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -44,8 +48,8 @@ public class BlockVolcanicRock extends Block
 	public void registerIcons(IconRegister icon)
 	{
 
-		this.blockIcon = icon.registerIcon("World Changers:"
-		        + this.getUnlocalizedName2());
+		this.blockIcon = icon.registerIcon(WorldChangersCore.modid + ":"
+		        + this.textureName);
 	}
 
 	@Override

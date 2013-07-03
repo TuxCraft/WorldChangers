@@ -1,5 +1,6 @@
 package worldChangers.TuxCraft.items;
 
+import worldChangers.TuxCraft.WorldChangersCore;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
 
@@ -18,6 +19,6 @@ public class itemWorldChangers extends Item
   @Override
   public void registerIcons(IconRegister icon)
   {
-    this.itemIcon = icon.registerIcon("World Changers:" + this.textureName);
+    this.itemIcon = icon.registerIcon(WorldChangersCore.modid + ":" + this.textureName);
   }
 }
