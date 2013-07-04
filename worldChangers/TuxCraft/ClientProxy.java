@@ -1,9 +1,18 @@
 package worldChangers.TuxCraft;
 
-public class ClientProxy extends CommonProxy {
-	public void load() {
-	}
 
-	public void registerRenderers() {
+public class ClientProxy extends CommonProxy
+{
+	
+	@Override
+	public void load()
+	{
+	
+	}
+	
+	@Override
+	public void registerRenderers()
+	{
+	
 	}
 }

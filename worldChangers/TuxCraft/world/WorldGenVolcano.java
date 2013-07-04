@@ -70,7 +70,6 @@ public class WorldGenVolcano extends WorldGenerator
 		}
 
 		par1World.setBlock(par3, par4 + height, par5,
-		        Block.lavaMoving.blockID);
 
 		spawnVolcanoDungeon(par1World, par3, par4 + height / 2, par5, rand);
 
