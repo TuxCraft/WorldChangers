@@ -4,11 +4,11 @@ import worldChangers.TuxCraft.WorldChangersCore;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
 
-public class itemWorldChangers extends Item
+public class WCItem extends Item
 {
   private String textureName;
 
-  public itemWorldChangers(int par1, String s)
+  public WCItem(int par1, String s)
   {
     super(par1);
     this.textureName = s;

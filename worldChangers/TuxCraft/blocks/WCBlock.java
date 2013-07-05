@@ -82,13 +82,28 @@ public class WCBlock extends Block
 	@Override
 	public int damageDropped(int par1)
     {
-        return 2;
+		if (behaviorGroup == "pillar")
+        {
+			return 2;
+        }
+		
+		else
+		{
+			return 0;
+		}
     }
 
 	@Override
     protected ItemStack createStackedBlock(int par1)
     {
-        return new ItemStack(this, 1, 2);
+		if (behaviorGroup == "pillar")
+        {
+			return new ItemStack(this, 1, 2);
+        }
+		else
+		{
+			return new ItemStack(this, 1, 0);
+		}
     }
     
     @Override

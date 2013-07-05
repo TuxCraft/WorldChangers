@@ -29,7 +29,7 @@ public class WCrecipes
 		
 		GameRegistry.addRecipe(new ItemStack(ashenBrick, 4), "xx", "xx", 'x', ashenStone);
 		GameRegistry.addRecipe(new ItemStack(ashenPillar, 2), " x", " x", 'x', ashenStone);
-		GameRegistry.addRecipe(new ItemStack(ashenStairs, 4), "x  ", "xx ", "xxx", 'x', ashenStone);
-		GameRegistry.addRecipe(new ItemStack(ashenSlab, 6), "   ", "   ", "xxx", 'x', ashenStone);
+		GameRegistry.addRecipe(new ItemStack(ashenStairs, 4), "x  ", "xx ", "xxx", 'x', ashenBrick);
+		GameRegistry.addRecipe(new ItemStack(ashenSlab, 6), "   ", "   ", "xxx", 'x', ashenBrick);
 	}
 }

@@ -6,11 +6,13 @@ import net.minecraft.block.StepSound;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemReed;
 import worldChangers.TuxCraft.blocks.BlockVolcanicRock;
 import worldChangers.TuxCraft.blocks.WCBlock;
 import worldChangers.TuxCraft.blocks.WCSlabs;
 import worldChangers.TuxCraft.blocks.WCStairs;
-import worldChangers.TuxCraft.items.itemWorldChangers;
+import worldChangers.TuxCraft.items.WCItem;
+import worldChangers.TuxCraft.items.itemBlackLight;
 import worldChangers.TuxCraft.world.WorldChangersGenerator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -39,8 +41,12 @@ public class WorldChangersCore
 	public static Block ashenStonePillar;
 	public static Block ashenStairs;
 	public static Block ashenSingleSlab;
+	public static Block ashenStairsTile;
+	public static Block ashenSingleSlabTile;
+	public static Block blackLight;
 	
 	public static Item ash;
+	public static Item blackLightItem;
 	
 	public static int blockIDBase = 180;
 	
@@ -56,9 +62,9 @@ public class WorldChangersCore
 		GameRegistry.registerBlock(ashenStone);
 		LanguageRegistry.addName(ashenStone, "Ashen Stone");
 		
-		ashenStoneBrick = new WCBlock(blockIDBase + 2, Material.rock, "ashenStoneBricks").propertyGroup("stone", null);
+		ashenStoneBrick = new WCBlock(blockIDBase + 2, Material.rock, "ashenStoneTile").propertyGroup("stone", null);
 		GameRegistry.registerBlock(ashenStoneBrick);
-		LanguageRegistry.addName(ashenStoneBrick, "Ashen Stone Bricks");
+		LanguageRegistry.addName(ashenStoneBrick, "Ashen Stone Tile");
 		
 		ashenStonePillar = new WCBlock(blockIDBase + 3, Material.rock, "ashenStonePillar").propertyGroup("stone", "pillar");
 		GameRegistry.registerBlock(ashenStonePillar);
@@ -72,9 +78,26 @@ public class WorldChangersCore
 		GameRegistry.registerBlock(ashenSingleSlab);
 		LanguageRegistry.addName(ashenSingleSlab, "Ashen Stone Slab");
 		
-		ash = new itemWorldChangers(8000, "ash")
+		ashenStairsTile = new WCStairs(blockIDBase + 6, ashenStoneBrick, 0, "ashenStairs").propertyGroup("stone", null);
+		GameRegistry.registerBlock(ashenStairsTile);
+		LanguageRegistry.addName(ashenStairsTile, "Ashen Tile Stairs");
+		
+		ashenSingleSlabTile = new WCSlabs(blockIDBase + 7, ashenStoneBrick, false, "ashenSlab").propertyGroup("stone", null);
+		GameRegistry.registerBlock(ashenSingleSlabTile);
+		LanguageRegistry.addName(ashenSingleSlabTile, "Ashen Tile Slab");
+		
+		blackLight = new BlackLight(blockIDBase + 8, "blackLight").propertyGroup("lightSource", null);
+		GameRegistry.registerBlock(blackLight);
+		LanguageRegistry.addName(blackLight, "Black Light");
+		
+		
+		
+		ash = new WCItem(8000, "ash")
 				.setCreativeTab(CreativeTabs.tabMaterials);
 		LanguageRegistry.addName(ash, "Ash");
+		
+		blackLightItem = new ItemReed(8001, blackLight).setCreativeTab(CreativeTabs.tabDecorations);
+		LanguageRegistry.addName(blackLightItem, "Black Light");
 		
 		GameRegistry.registerWorldGenerator(this.worldGenerator);
 	}
