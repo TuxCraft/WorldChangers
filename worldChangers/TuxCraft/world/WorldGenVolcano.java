@@ -3,7 +3,11 @@ package worldChangers.TuxCraft.world;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.item.EntityFallingSand;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -53,7 +57,12 @@ public class WorldGenVolcano extends WorldGenerator {
 			makeCylinder(par1World, par3, height + par4, par5, ii / 2.0D, Block.lavaMoving, rand);
 		}
 
+<<<<<<< HEAD
 		par1World.setBlock(par3, par4 + height, par5, Block.lavaMoving.blockID);
+=======
+		par1World.setBlock(par3, par4 + height, par5,
+		        Block.lavaMoving.blockID, 0, 2);
+>>>>>>> 9ea126bde8a3d6dd99a29bb54ca4cbd996b56ade
 
 		spawnVolcanoDungeon(par1World, par3, par4 + height / 2, par5, rand);
 
