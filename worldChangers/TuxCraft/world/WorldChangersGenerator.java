@@ -30,7 +30,7 @@ public class WorldChangersGenerator implements IWorldGenerator {
 
 		if ((world.getBiomeGenForCoords(x, z).biomeName != "Ocean") && (world.getBiomeGenForCoords(x, z).biomeName != "River") && (world.getBiomeGenForCoords(x, z).biomeName != "Swampland") && (world.getBiomeGenForCoords(x, z).biomeName != "Beach") && (world.getBiomeGenForCoords(x, z).biomeName != "JungleHills")) {
 			// Change back to 100!
-			if (random.nextInt(5) == 1) {
+			if (random.nextInt(100) == 1) {
 				long start = System.currentTimeMillis();
 				new WorldGenTVolcano(true).generate(world, random, x, y, z);
 				System.out.println("Volcono spawned at " + x + " " + y + " " + z + ". In biome " + String.valueOf(world.getBiomeGenForCoords(x, z).biomeName) + ". Took " + (System.currentTimeMillis() - start));
