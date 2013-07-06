@@ -9,14 +9,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import worldChangers.TuxCraft.WorldChangersCore;
 
-public class WorldGenVolcano extends WorldGenerator
-{
+public class WorldGenVolcano extends WorldGenerator {
 
 	double baseRadius;
 	double mouthRadius;
 
-	public WorldGenVolcano(boolean par1, double par2, double par3)
-	{
+	public WorldGenVolcano(boolean par1, double par2, double par3) {
 
 		super(par1);
 		this.baseRadius = par2;
@@ -24,9 +22,7 @@ public class WorldGenVolcano extends WorldGenerator
 	}
 
 	@Override
-	public boolean generate(World par1World, Random rand, int par3,
-	        int par4, int par5)
-	{
+	public boolean generate(World par1World, Random rand, int par3, int par4, int par5) {
 
 		int[] lavaLoc = null;
 
@@ -35,51 +31,36 @@ public class WorldGenVolcano extends WorldGenerator
 
 		double radius = this.mouthRadius;
 
-		for (int i = height; i >= 0; i--)
-		{
+		for (int i = height; i >= 0; i--) {
 			radius += increment;
 
-			for (double ii = radius * 2.0D; ii >= 0.0D; ii -= 1.0D)
-			{
-				makeCylinder(par1World, par3, i + par4, par5, ii / 2.0D,
-				        Block.lavaMoving, rand);
+			for (double ii = radius * 2.0D; ii >= 0.0D; ii -= 1.0D) {
+				makeCylinder(par1World, par3, i + par4, par5, ii / 2.0D, Block.lavaMoving, rand);
 			}
 
-			for (double ii = radius * 2.0D; ii >= (radius - 4.0D) * 2.0D; ii -= 1.0D)
-			{
-				int[] intArray = makeCylinder(par1World, par3, i + par4, par5,
-				        ii / 2.0D, WorldChangersCore.volcanicRock, rand);
-
-				if (intArray != null)
-				{
+			for (double ii = radius * 2.0D; ii >= (radius - 4.0D) * 2.0D; ii -= 1.0D) {
+				int[] intArray = makeCylinder(par1World, par3, i + par4, par5, ii / 2.0D, WorldChangersCore.volcanicRock, rand);
+				if (intArray != null) {
 					lavaLoc = intArray;
 				}
-
 			}
-
-			if (lavaLoc != null)
-			{
+			if (lavaLoc != null) {
 				setLava(lavaLoc[0], lavaLoc[1], lavaLoc[2], par1World);
 			}
 		}
 
-		for (double ii = (this.mouthRadius - 1.0D) * 2.0D; ii >= 0.0D; ii -= 1.0D)
-		{
-			makeCylinder(par1World, par3, height + par4, par5, ii / 2.0D,
-			        Block.lavaMoving, rand);
+		for (double ii = (this.mouthRadius - 1.0D) * 2.0D; ii >= 0.0D; ii -= 1.0D) {
+			makeCylinder(par1World, par3, height + par4, par5, ii / 2.0D, Block.lavaMoving, rand);
 		}
 
-		par1World.setBlock(par3, par4 + height, par5,
-		        Block.lavaMoving.blockID);
+		par1World.setBlock(par3, par4 + height, par5, Block.lavaMoving.blockID);
 
 		spawnVolcanoDungeon(par1World, par3, par4 + height / 2, par5, rand);
 
 		return true;
 	}
 
-	private void spawnVolcanoDungeon(World world, int x, int y, int z,
-	        Random rand)
-	{
+	private void spawnVolcanoDungeon(World world, int x, int y, int z, Random rand) {
 
 		int netherBrick = Block.netherBrick.blockID;
 		int stoneBrick = Block.stoneBrick.blockID;
@@ -89,22 +70,14 @@ public class WorldGenVolcano extends WorldGenerator
 
 		world.setBlock(x, y + level, z, netherBrick);
 
-		world.setBlock(x + 1, y + level, z,
-		        stoneBrick);
-		world.setBlock(x - 1, y + level, z,
-		        stoneBrick);
-		world.setBlock(x, y + level, z + 1,
-		        stoneBrick);
-		world.setBlock(x, y + level, z - 1,
-		        stoneBrick);
-		world.setBlock(x + 1, y + level, z + 1,
-		        stoneBrick);
-		world.setBlock(x - 1, y + level, z + 1,
-		        stoneBrick);
-		world.setBlock(x + 1, y + level, z - 1,
-		        stoneBrick);
-		world.setBlock(x - 1, y + level, z - 1,
-		        stoneBrick);
+		world.setBlock(x + 1, y + level, z, stoneBrick);
+		world.setBlock(x - 1, y + level, z, stoneBrick);
+		world.setBlock(x, y + level, z + 1, stoneBrick);
+		world.setBlock(x, y + level, z - 1, stoneBrick);
+		world.setBlock(x + 1, y + level, z + 1, stoneBrick);
+		world.setBlock(x - 1, y + level, z + 1, stoneBrick);
+		world.setBlock(x + 1, y + level, z - 1, stoneBrick);
+		world.setBlock(x - 1, y + level, z - 1, stoneBrick);
 
 		world.setBlock(x + 2, y + level, z, netherBrick);
 		world.setBlock(x - 2, y + level, z, netherBrick);
@@ -125,38 +98,22 @@ public class WorldGenVolcano extends WorldGenerator
 
 		level = 0;
 
-		world.setBlock(x + 2, y + level, z,
-		        ironFence);
-		world.setBlock(x - 2, y + level, z,
-		        ironFence);
-		world.setBlock(x, y + level, z + 2,
-		        ironFence);
-		world.setBlock(x, y + level, z - 2,
-		        ironFence);
-		world.setBlock(x + 1, y + level, z + 2,
-		        ironFence);
-		world.setBlock(x - 1, y + level, z + 2,
-		        ironFence);
-		world.setBlock(x + 1, y + level, z - 2,
-		        ironFence);
-		world.setBlock(x - 1, y + level, z - 2,
-		        ironFence);
-		world.setBlock(x + 2, y + level, z + 1,
-		        ironFence);
-		world.setBlock(x - 2, y + level, z + 1,
-		        ironFence);
-		world.setBlock(x + 2, y + level, z - 1,
-		        ironFence);
-		world.setBlock(x - 2, y + level, z - 1,
-		        ironFence);
-		world.setBlock(x + 2, y + level, z + 2,
-		        ironFence);
-		world.setBlock(x - 2, y + level, z + 2,
-		        ironFence);
-		world.setBlock(x + 2, y + level, z - 2,
-		        ironFence);
-		world.setBlock(x - 2, y + level, z - 2,
-		        ironFence);
+		world.setBlock(x + 2, y + level, z, ironFence);
+		world.setBlock(x - 2, y + level, z, ironFence);
+		world.setBlock(x, y + level, z + 2, ironFence);
+		world.setBlock(x, y + level, z - 2, ironFence);
+		world.setBlock(x + 1, y + level, z + 2, ironFence);
+		world.setBlock(x - 1, y + level, z + 2, ironFence);
+		world.setBlock(x + 1, y + level, z - 2, ironFence);
+		world.setBlock(x - 1, y + level, z - 2, ironFence);
+		world.setBlock(x + 2, y + level, z + 1, ironFence);
+		world.setBlock(x - 2, y + level, z + 1, ironFence);
+		world.setBlock(x + 2, y + level, z - 1, ironFence);
+		world.setBlock(x - 2, y + level, z - 1, ironFence);
+		world.setBlock(x + 2, y + level, z + 2, ironFence);
+		world.setBlock(x - 2, y + level, z + 2, ironFence);
+		world.setBlock(x + 2, y + level, z - 2, ironFence);
+		world.setBlock(x - 2, y + level, z - 2, ironFence);
 
 		world.setBlockToAir(x + 1, y + level, z);
 		world.setBlockToAir(x - 1, y + level, z);
@@ -167,52 +124,32 @@ public class WorldGenVolcano extends WorldGenerator
 		world.setBlockToAir(x + 1, y + level, z - 1);
 		world.setBlockToAir(x - 1, y + level, z - 1);
 
-		world.setBlock(x, y + level, z,
-		        Block.chest.blockID, 0, 2);
-		TileEntityChest tileentitychest = (TileEntityChest) world.getBlockTileEntity(
-		        x, y + level, z);
+		world.setBlock(x, y + level, z, Block.chest.blockID, 0, 2);
+		TileEntityChest tileentitychest = (TileEntityChest) world.getBlockTileEntity(x, y + level, z);
 
-		if (tileentitychest != null)
-		{
+		if (tileentitychest != null) {
 			WCChestGenHooks info = WCChestGenHooks.getInfo("volcano");
-			WeightedRandomChestContent.generateChestContents(rand, info.getItems(rand),
-			        tileentitychest, info.getCount(rand));
+			WeightedRandomChestContent.generateChestContents(rand, info.getItems(rand), tileentitychest, info.getCount(rand));
 		}
 
 		level = 1;
 
-		world.setBlock(x + 2, y + level, z,
-		        ironFence);
-		world.setBlock(x - 2, y + level, z,
-		        ironFence);
-		world.setBlock(x, y + level, z + 2,
-		        ironFence);
-		world.setBlock(x, y + level, z - 2,
-		        ironFence);
-		world.setBlock(x + 1, y + level, z + 2,
-		        ironFence);
-		world.setBlock(x - 1, y + level, z + 2,
-		        ironFence);
-		world.setBlock(x + 1, y + level, z - 2,
-		        ironFence);
-		world.setBlock(x - 1, y + level, z - 2,
-		        ironFence);
-		world.setBlock(x + 2, y + level, z + 1,
-		        ironFence);
-		world.setBlock(x - 2, y + level, z + 1,
-		        ironFence);
-		world.setBlock(x + 2, y + level, z - 1,
-		        ironFence);
-		world.setBlock(x - 2, y + level, z - 1,
-		        ironFence);
-		world.setBlock(x + 2, y + level, z + 2,
-		        ironFence);
-		world.setBlock(x - 2, y + level, z + 2,
-		        ironFence);
-		world.setBlock(x + 2, y + level, z - 2,
-		        ironFence);
-		world.setBlock(x - 2, y + level, z - 2,
-		        ironFence);
+		world.setBlock(x + 2, y + level, z, ironFence);
+		world.setBlock(x - 2, y + level, z, ironFence);
+		world.setBlock(x, y + level, z + 2, ironFence);
+		world.setBlock(x, y + level, z - 2, ironFence);
+		world.setBlock(x + 1, y + level, z + 2, ironFence);
+		world.setBlock(x - 1, y + level, z + 2, ironFence);
+		world.setBlock(x + 1, y + level, z - 2, ironFence);
+		world.setBlock(x - 1, y + level, z - 2, ironFence);
+		world.setBlock(x + 2, y + level, z + 1, ironFence);
+		world.setBlock(x - 2, y + level, z + 1, ironFence);
+		world.setBlock(x + 2, y + level, z - 1, ironFence);
+		world.setBlock(x - 2, y + level, z - 1, ironFence);
+		world.setBlock(x + 2, y + level, z + 2, ironFence);
+		world.setBlock(x - 2, y + level, z + 2, ironFence);
+		world.setBlock(x + 2, y + level, z - 2, ironFence);
+		world.setBlock(x - 2, y + level, z - 2, ironFence);
 
 		world.setBlockToAir(x, y + level, z);
 		world.setBlockToAir(x + 1, y + level, z);
@@ -228,22 +165,14 @@ public class WorldGenVolcano extends WorldGenerator
 
 		world.setBlock(x, y + level, z, netherBrick);
 
-		world.setBlock(x + 1, y + level, z,
-		        stoneBrick);
-		world.setBlock(x - 1, y + level, z,
-		        stoneBrick);
-		world.setBlock(x, y + level, z + 1,
-		        stoneBrick);
-		world.setBlock(x, y + level, z - 1,
-		        stoneBrick);
-		world.setBlock(x + 1, y + level, z + 1,
-		        stoneBrick);
-		world.setBlock(x - 1, y + level, z + 1,
-		        stoneBrick);
-		world.setBlock(x + 1, y + level, z - 1,
-		        stoneBrick);
-		world.setBlock(x - 1, y + level, z - 1,
-		        stoneBrick);
+		world.setBlock(x + 1, y + level, z, stoneBrick);
+		world.setBlock(x - 1, y + level, z, stoneBrick);
+		world.setBlock(x, y + level, z + 1, stoneBrick);
+		world.setBlock(x, y + level, z - 1, stoneBrick);
+		world.setBlock(x + 1, y + level, z + 1, stoneBrick);
+		world.setBlock(x - 1, y + level, z + 1, stoneBrick);
+		world.setBlock(x + 1, y + level, z - 1, stoneBrick);
+		world.setBlock(x - 1, y + level, z - 1, stoneBrick);
 
 		world.setBlock(x + 2, y + level, z, netherBrick);
 		world.setBlock(x - 2, y + level, z, netherBrick);
@@ -263,67 +192,47 @@ public class WorldGenVolcano extends WorldGenerator
 		world.setBlock(x - 2, y + level, z - 2, netherBrick);
 	}
 
-	public int[] makeCylinder(World world, int posX, int height, int posZ,
-	        double radius, Block block, Random rand)
-	{
+	public int[] makeCylinder(World world, int posX, int height, int posZ, double radius, Block block, Random rand) {
 
 		int[] intArray = null;
 
-		for (double i = radius * 100.0D; i >= radius * -100.0D; i -= 1.0D)
-		{
+		for (double i = radius * 100.0D; i >= radius * -100.0D; i -= 1.0D) {
 			int random = rand.nextInt(4);
 
 			double x = Math.sqrt(radius * radius - i * i);
 			double y = Math.sqrt(radius * radius - x * x);
 
-			world.setBlock((int) Math.round(posX + x), height,
-			        (int) Math.round(posZ + y), block.blockID);
+			world.setBlock((int) Math.round(posX + x), height, (int) Math.round(posZ + y), block.blockID);
 
-			world.setBlock((int) Math.round(posX - x), height,
-			        (int) Math.round(posZ - y), block.blockID);
+			world.setBlock((int) Math.round(posX - x), height, (int) Math.round(posZ - y), block.blockID);
 
-			world.setBlock((int) Math.round(posX + x), height,
-			        (int) Math.round(posZ - y), block.blockID);
+			world.setBlock((int) Math.round(posX + x), height, (int) Math.round(posZ - y), block.blockID);
 
-			world.setBlock((int) Math.round(posX - x), height,
-			        (int) Math.round(posZ + y), block.blockID);
+			world.setBlock((int) Math.round(posX - x), height, (int) Math.round(posZ + y), block.blockID);
 
-			world.setBlock((int) Math.round(posX + y), height,
-			        (int) Math.round(posZ + x), block.blockID);
+			world.setBlock((int) Math.round(posX + y), height, (int) Math.round(posZ + x), block.blockID);
 
-			world.setBlock((int) Math.round(posX - y), height,
-			        (int) Math.round(posZ - x), block.blockID);
+			world.setBlock((int) Math.round(posX - y), height, (int) Math.round(posZ - x), block.blockID);
 
-			world.setBlock((int) Math.round(posX + y), height,
-			        (int) Math.round(posZ - x), block.blockID);
+			world.setBlock((int) Math.round(posX + y), height, (int) Math.round(posZ - x), block.blockID);
 
-			world.setBlock((int) Math.round(posX - y), height,
-			        (int) Math.round(posZ + x), block.blockID);
+			world.setBlock((int) Math.round(posX - y), height, (int) Math.round(posZ + x), block.blockID);
 
-			if (rand.nextInt(20) == 1)
-			{
-				if (random == 0)
-				{
-					setLava((int) Math.round(posX + x), height,
-					        (int) Math.round(posZ + y), world);
+			if (rand.nextInt(20) == 1) {
+				if (random == 0) {
+					setLava((int) Math.round(posX + x), height, (int) Math.round(posZ + y), world);
 				}
 
-				if (random == 1)
-				{
-					setLava((int) Math.round(posX - x), height,
-					        (int) Math.round(posZ + y), world);
+				if (random == 1) {
+					setLava((int) Math.round(posX - x), height, (int) Math.round(posZ + y), world);
 				}
 
-				if (random == 2)
-				{
-					setLava((int) Math.round(posX + x), height,
-					        (int) Math.round(posZ - y), world);
+				if (random == 2) {
+					setLava((int) Math.round(posX + x), height, (int) Math.round(posZ - y), world);
 				}
 
-				if (random == 3)
-				{
-					setLava((int) Math.round(posX - x), height,
-					        (int) Math.round(posZ - y), world);
+				if (random == 3) {
+					setLava((int) Math.round(posX - x), height, (int) Math.round(posZ - y), world);
 				}
 
 			}
@@ -335,9 +244,7 @@ public class WorldGenVolcano extends WorldGenerator
 		return intArray;
 	}
 
-	private void setLava(int x, int height, int z, World world)
-	{
-
+	private void setLava(int x, int height, int z, World world) {
 		world.setBlock(x, height, z, Block.lavaMoving.blockID);
 	}
 
