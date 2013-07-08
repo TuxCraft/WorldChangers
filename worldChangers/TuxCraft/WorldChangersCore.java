@@ -7,7 +7,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemReed;
-import worldChangers.TuxCraft.blocks.BlackLight;
 import worldChangers.TuxCraft.blocks.BlockVolcanicRock;
 import worldChangers.TuxCraft.blocks.WCBlock;
 import worldChangers.TuxCraft.blocks.WCSlabs;

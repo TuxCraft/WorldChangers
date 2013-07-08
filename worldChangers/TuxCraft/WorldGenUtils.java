@@ -1,11 +1,9 @@
-package worldChangers.TuxCraft.world;
+package worldChangers.TuxCraft;
 
 import net.minecraft.world.World;
 
 public class WorldGenUtils {
 
-	// Really love this draw circle / draw cube stuff, will come in handy when making rooms. Did this come from the minecraft src?
-	
 	public static int getMinimumBlockHeight(int x, int z, int w, int h, World world) {
 		int cur = world.getTopSolidOrLiquidBlock(x, z);
 

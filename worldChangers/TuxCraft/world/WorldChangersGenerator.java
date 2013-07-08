@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
+import worldChangers.TuxCraft.WorldGenUtils;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldChangersGenerator implements IWorldGenerator {
@@ -28,11 +29,11 @@ public class WorldChangersGenerator implements IWorldGenerator {
 		int y = WorldGenUtils.getHighestBlock(world, x, z);
 
 		if ((world.getBiomeGenForCoords(x, z).biomeName != "Ocean") && (world.getBiomeGenForCoords(x, z).biomeName != "River") && (world.getBiomeGenForCoords(x, z).biomeName != "Swampland") && (world.getBiomeGenForCoords(x, z).biomeName != "Beach") && (world.getBiomeGenForCoords(x, z).biomeName != "JungleHills")) {
-			if (random.nextInt(100) == 1) {
-				System.out.println("Generating structure, please be patient...");
+			// Change back to 100!
+			if (random.nextInt(50) == 1) {
 				long start = System.currentTimeMillis();
-				new WorldGenVolcano(true).generate(world, random, x, y, z);
-				System.out.println("Volcono spawned at " + x + " " + y + " " + z + " In biome " + String.valueOf(world.getBiomeGenForCoords(x, z).biomeName) + ". Took " + (System.currentTimeMillis() - start) + " milliseconds");
+				new WorldGenTVolcano(true).generate(world, random, x, y, z);
+				System.out.println("Volcono spawned at " + x + " " + y + " " + z + ". In biome " + String.valueOf(world.getBiomeGenForCoords(x, z).biomeName) + ". Took " + (System.currentTimeMillis() - start));
 			}
 
 		}
