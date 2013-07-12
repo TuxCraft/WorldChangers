@@ -1,4 +1,4 @@
-package worldChangers.TuxCraft;
+package worldChangers.TuxCraft.blocks;
 
 import static net.minecraftforge.common.ForgeDirection.DOWN;
 import static net.minecraftforge.common.ForgeDirection.EAST;
@@ -14,7 +14,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import worldChangers.TuxCraft.blocks.WCBlock;
+import worldChangers.TuxCraft.WorldChangersCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

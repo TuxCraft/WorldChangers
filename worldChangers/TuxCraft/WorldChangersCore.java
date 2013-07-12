@@ -2,17 +2,16 @@ package worldChangers.TuxCraft;
 
 
 import net.minecraft.block.Block;
-import net.minecraft.block.StepSound;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemReed;
+import worldChangers.TuxCraft.blocks.BlackLight;
 import worldChangers.TuxCraft.blocks.BlockVolcanicRock;
 import worldChangers.TuxCraft.blocks.WCBlock;
 import worldChangers.TuxCraft.blocks.WCSlabs;
 import worldChangers.TuxCraft.blocks.WCStairs;
 import worldChangers.TuxCraft.items.WCItem;
-import worldChangers.TuxCraft.items.itemBlackLight;
 import worldChangers.TuxCraft.world.WorldChangersGenerator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -44,6 +43,7 @@ public class WorldChangersCore
 	public static Block ashenStairsTile;
 	public static Block ashenSingleSlabTile;
 	public static Block blackLight;
+	public static Block astralCore;
 	
 	public static Item ash;
 	public static Item blackLightItem;
@@ -89,6 +89,10 @@ public class WorldChangersCore
 		blackLight = new BlackLight(blockIDBase + 8, "blackLight").propertyGroup("lightSource", null);
 		GameRegistry.registerBlock(blackLight);
 		LanguageRegistry.addName(blackLight, "Black Light");
+		
+		astralCore = new WCBlock(blockIDBase + 9, Material.rock, "astralCore").propertyGroup("glowingStone", null);
+		GameRegistry.registerBlock(astralCore);
+		LanguageRegistry.addName(astralCore, "Astral Core");
 		
 		
 		

@@ -22,6 +22,15 @@ public class PropertyGroups
 			b.setHardness(0.3F);
 			b.setLightValue(1.0F);
 			b.setStepSound(new StepSound("stone", 1.0F, 1.0F));
+			b.setLightValue(1.0F);
+		}
+		
+		if (s == "glowingStone")
+		{
+			b.setHardness(1.5F);
+			b.setResistance(10.0F);
+			b.setStepSound(new StepSound("stone", 1.0F, 1.0F));
+			b.setLightValue(0.5F);
 		}
 		
 	}
