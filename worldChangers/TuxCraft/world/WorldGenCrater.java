@@ -87,11 +87,11 @@ public class WorldGenCrater extends WorldGenerator {
 		for (double i = -r; i < r; i++)
 			for (double j = -r; j < r; j++)
 				if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= r) {
-					int randomInt = random.nextInt(10); //fire chance
+					int randomInt = random.nextInt(50);
 					if (randomInt == 1)
-						world.setBlock((int) i + x, y, (int) j + z, Block.obsidian.blockID); //FIRE STUFF HERE
+						world.setBlock((int) i + x, y, (int) j + z, WorldChangersCore.infiniteFire.blockID);
 					else if (randomInt < 4)
-						world.setBlockToAir((int) i + x, y, (int) j + z); // air chance(wall randomness)
+						world.setBlockToAir((int) i + x, y, (int) j + z);
 				}
 	}
 

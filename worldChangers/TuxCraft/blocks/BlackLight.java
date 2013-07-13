@@ -188,7 +188,6 @@ public class BlackLight extends WCBlock
 	
 	public void onNeighborBlockChange(World par1World, int x, int y, int z, int par5)
     {
-        System.out.println(par1World.getBlockMetadata(x, y, z));
         
         switch(par1World.getBlockMetadata(x, y, z))
         {

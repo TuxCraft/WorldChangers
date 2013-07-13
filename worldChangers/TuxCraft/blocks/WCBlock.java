@@ -40,8 +40,12 @@ public class WCBlock extends Block
 	
 		this.blockIcon = icon.registerIcon(WorldChangersCore.modid + ":"
 				+ this.textureName);
-		this.blockIconTop = icon.registerIcon(WorldChangersCore.modid + ":"
-				+ this.textureName + "_top");
+		
+		if(behaviorGroup == "pillar")
+		{
+			this.blockIconTop = icon.registerIcon(WorldChangersCore.modid + ":"
+					+ this.textureName + "_top");
+		}
 	}
 	
 	public Block propertyGroup(String s, String s2)

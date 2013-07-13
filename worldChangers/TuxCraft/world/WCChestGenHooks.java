@@ -28,20 +28,23 @@ public class WCChestGenHooks
 		ItemStack book = new ItemStack(Item.enchantedBook, 1, 0);
 
 		WCChestGenHooks d = new WCChestGenHooks("volcano");
-		d.countMin = 8;
+		d.countMin = 5;
 		d.countMax = 8;
 		chestInfo.put("volcano", d);
 		addDungeonLoot(d, new ItemStack(Item.saddle), 150, 1, 2);
 		addDungeonLoot(d, new ItemStack(Item.redstone), 100, 1, 8);
-		addDungeonLoot(d, new ItemStack(Item.diamond), 200, 1, 1);
+		addDungeonLoot(d, new ItemStack(Item.diamond), 50, 1, 1);
 		addDungeonLoot(d, new ItemStack(Item.ingotIron), 100, 1, 4);
 		addDungeonLoot(d, new ItemStack(Item.carrot), 100, 1, 8);
 		addDungeonLoot(d, new ItemStack(Item.pumpkinPie), 100, 1, 8);
 		addDungeonLoot(d, new ItemStack(Item.melonSeeds), 80, 1, 2);
 		addDungeonLoot(d, new ItemStack(Item.appleGold), 50, 1, 2);
 		addDungeonLoot(d, new ItemStack(Item.enderPearl), 80, 1, 4);
-		addDungeonLoot(d, new ItemStack(Item.pickaxeDiamond), 50, 1, 1);
-		addDungeonLoot(d, new ItemStack(Item.swordDiamond), 50, 1, 1);
+		addDungeonLoot(d, new ItemStack(Item.hoeDiamond), 50, 1, 1);
+		addDungeonLoot(d, new ItemStack(Item.field_111213_cg), 50, 1, 1);
+		addDungeonLoot(d, new ItemStack(Item.field_111216_cf), 75, 1, 1);
+		addDungeonLoot(d, new ItemStack(Item.field_111215_ce), 100, 1, 1);
+		addDungeonLoot(d, new ItemStack(Item.field_111212_ci), 100, 1, 3);
 		addDungeonLoot(d, book, 100, 1, 1);
 		addDungeonLoot(d, book, 100, 1, 1);
 	}

@@ -1,20 +1,14 @@
 package worldChangers.TuxCraft;
 
-import net.minecraftforge.client.MinecraftForgeClient;
+public class ClientProxy extends CommonProxy {
 
-
-public class ClientProxy extends CommonProxy
-{
-	
 	@Override
-	public void load()
-	{
-	
+	public void load() {
+
 	}
-	
+
 	@Override
-	public void registerRenderers()
-	{
-		
+	public void registerRenderers() {
+
 	}
 }

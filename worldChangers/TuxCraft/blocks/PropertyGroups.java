@@ -30,7 +30,7 @@ public class PropertyGroups
 			b.setHardness(1.5F);
 			b.setResistance(10.0F);
 			b.setStepSound(new StepSound("stone", 1.0F, 1.0F));
-			b.setLightValue(0.5F);
+			b.setLightValue(0.1F);
 		}
 		
 	}
