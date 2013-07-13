@@ -55,8 +55,6 @@ public class WorldGenTVolcano extends WorldGenerator {
 
 		int volcanoDungeonOffset = ((curY - y) / 2);
 
-		System.out.println(volcanoDungeonOffset);
-
 		WorldGenUtils.drawCube(x - 2, y - 5 + volcanoDungeonOffset, z - 2, 5, 5, 5, Block.netherBrick.blockID, world);
 		WorldGenUtils.drawCube(x - 2, y - 4 + volcanoDungeonOffset, z - 2, 5, 3, 5, Block.fenceIron.blockID, world);
 		WorldGenUtils.drawCube(x - 1, y - 4 + volcanoDungeonOffset, z - 1, 3, 4, 3, Block.stoneBrick.blockID, world);
@@ -73,7 +71,7 @@ public class WorldGenTVolcano extends WorldGenerator {
 		return true;
 	}
 
-	void drawVolcanoCircle(int x, int y, int z, double r, World world, int bid, int b2id, Random random) {
+	public static void drawVolcanoCircle(int x, int y, int z, double r, World world, int bid, int b2id, Random random) {
 		for (double i = -r; i < r; i++)
 			for (double j = -r; j < r; j++)
 				if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= r) {

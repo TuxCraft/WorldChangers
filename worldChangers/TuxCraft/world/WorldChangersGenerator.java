@@ -34,6 +34,10 @@ public class WorldChangersGenerator implements IWorldGenerator {
 				long start = System.currentTimeMillis();
 				new WorldGenTVolcano(true).generate(world, random, x, y, z);
 				System.out.println("Volcono spawned at " + x + " " + y + " " + z + ". In biome " + String.valueOf(world.getBiomeGenForCoords(x, z).biomeName) + ". Took " + (System.currentTimeMillis() - start));
+			} else if (random.nextInt(50) == 1) {
+				long start = System.currentTimeMillis();
+				new WorldGenCrater().generate(world, random, x, y, z);
+				System.out.println("Crater spawned at " + x + " " + y + " " + z + ". In biome " + String.valueOf(world.getBiomeGenForCoords(x, z).biomeName) + ". Took " + (System.currentTimeMillis() - start));
 			}
 
 		}
