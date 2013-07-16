@@ -27,12 +27,25 @@ public class WorldGenUtils {
 	}
 
 	public static int getHighestBlock(World world, int x, int z) {
-		for (int i = 128; i > 0; i--) {
-			if (world.getBlockId(x, i, z) != 0) {
-				return i;
-			}
-		}
-		return 0;
+		return world.getTopSolidOrLiquidBlock(x, z);
+	}
+	
+	public static void drawSphere(int x, int y, int z, double r, int block, World world) {
+		for (double i = -r; i < r; i++) 
+			for (double j = -r; j < r; j++) 
+				for (double k = -r; k < r; k++) {
+					if(Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2) + Math.pow(k, 2)) <= r)
+						world.setBlock((int)i + x, (int)j + y, (int)k + z, block);
+				}		
+	}
+	
+	public static void clearSphere(int x, int y, int z, double r, World world) {
+		for (double i = -r; i < r; i++)
+			for (double j = -r; j < r; j++)
+				for (double k = -r; k < r; k++) {
+					if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2) + Math.pow(k, 2)) <= r)
+						world.setBlockToAir((int) i + x, (int) j + y, (int) k + z);
+				}
 	}
 
 	public static void clearCircle(int x, int y, int z, double r, World world) {
