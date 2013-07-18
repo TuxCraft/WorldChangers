@@ -63,7 +63,7 @@ public class WorldChangersGenerator implements IWorldGenerator {
 		if (random.nextInt(spawnRate) == 1)  {
 			long start = System.currentTimeMillis();
 			new WorldGenGhastHive(true).generate(world, random, x, y, z);
-			System.out.println("Ghast Hive spawned at " + x + " " + y + " " + z + " Took " + (System.currentTimeMillis() - start) + " milliseconds");
+			System.out.println("Ghast Hive spawned at " + x + " " + y + " " + z + ": Took " + (System.currentTimeMillis() - start) + " milliseconds");
 		}
 	}
 }

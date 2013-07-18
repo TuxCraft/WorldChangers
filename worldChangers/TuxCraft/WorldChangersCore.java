@@ -44,6 +44,7 @@ public class WorldChangersCore {
 	public static Block blackLight;
 	public static Block astralCore;
 	public static Block infiniteFire;
+	public static Block ghastHive;
 
 	public static Item ash;
 	public static Item blackLightItem;
@@ -112,6 +113,11 @@ public class WorldChangersCore {
 				.setLightValue(0.5F).setUnlocalizedName("fire")
 				.func_111022_d("fire");
 		GameRegistry.registerBlock(infiniteFire, "infiniteFire");
+		
+		ghastHive = new WCBlock(blockIDBase + 11, Material.web, "ghastHive")
+			.propertyGroup("stone", null);
+		GameRegistry.registerBlock(ghastHive, "ghastHive");
+		LanguageRegistry.addName(ghastHive, "Ghast Hive Bindings");
 
 		ash = new WCItem(8000, "ash").setCreativeTab(CreativeTabs.tabMaterials);
 		LanguageRegistry.addName(ash, "Ash");

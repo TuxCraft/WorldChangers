@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import worldChangers.TuxCraft.WorldChangersCore;
 import worldChangers.TuxCraft.WorldGenUtils;
 
 public class WorldGenGhastHive extends WorldGenerator {
@@ -41,17 +42,19 @@ public class WorldGenGhastHive extends WorldGenerator {
 		if (raidus < MIN_SIZE)
 			raidus = MIN_SIZE;
 
-		drawSphereWithLava(x, top - raidus, z, raidus, Block.blockIron.blockID, rand, world); // IRON
+		drawSphereWithLava(x, top - raidus, z, raidus, WorldChangersCore.ghastHive.blockID, rand, world); // IRON
 		makeHoles(x, top - raidus, z, raidus, world);
 		WorldGenUtils.clearSphere(x, top - raidus, z, raidus - 2, world);
 		drawRandomSphere(x, top - raidus, z, raidus - 1, rand, world);
 
 		int i;
 		for (i = 0; i < raidus; i++) {
-			world.setBlock(x, ground + i, z, Block.blockIron.blockID); // IRON
+			
 		}
+		
+		WorldGenUtils.drawCube(x - 4, ground + i - 1, z - 4, 5, 1, 5, WorldChangersCore.ghastHive.blockID, world);
 		world.setBlock(x, ground + i, z, Block.blockDiamond.blockID); // Chest
-
+		
 		return true;
 	}
 
@@ -61,18 +64,18 @@ public class WorldGenGhastHive extends WorldGenerator {
 				for (double k = -r; k < r; k++)
 					if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2) + Math.pow(k, 2)) <= r) {
 						int random = rand.nextInt(2000);
-						if (random <= 2) {
+						if (random <= 1) {
 							world.setBlock((int) i + x, (int) j + y, (int) k + z, Block.mobSpawner.blockID, 0, 2);
 							TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getBlockTileEntity((int) i + x, (int) j + y, (int) k + z);
 							if (tileentitymobspawner != null) {
-								tileentitymobspawner.func_98049_a().setMobID("Ghast");
+								tileentitymobspawner.getSpawnerLogic().setMobID("Ghast");
 							} else {
 								System.err.println("Failed to fetch mob spawner entity at (" + (i + x) + ", " + (j + y) + ", " + (k + z) + ")");
 							}
-						} else if (random <= 5) {
-							world.setBlock((int) i + x, (int) j + y, (int) k + z, Block.lavaMoving.blockID);
 						} else if (random <= 15) {
-							WorldGenUtils.drawCube((int) i + x - 2, (int) j + y, (int) k + z - 2, 4, 1, 4, Block.blockIron.blockID, world);
+							WorldGenUtils.drawCube((int) i + x - 2, (int) j + y, (int) k + z - 2, 4, 1, 4, WorldChangersCore.ghastHive.blockID, world);
+							int random2 = rand.nextInt(42);
+							if(random2 == 1)world.setBlock((int) i + x, (int) j + y + 1, (int) k + z, Block.blockDiamond.blockID);
 						}
 					}
 	}
@@ -83,10 +86,19 @@ public class WorldGenGhastHive extends WorldGenerator {
 				for (double k = -r; k < r; k++) {
 					if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2) + Math.pow(k, 2)) <= r) {
 						int random = rand.nextInt(200);
-						if (random == 1)
+						if (random <= 3)
 							world.setBlock((int) i + x, (int) j + y, (int) k + z, Block.sponge.blockID); //Do not change
-						else if (random <= 5) {
-							world.setBlock((int) i + x, (int) j + y, (int) k + z, Block.lavaMoving.blockID);	
+						else if (random <= 4) {
+							
+							for(int a = 1; a <= (128 - y - j); a++)
+							{
+								if(world.isAirBlock((int) i + x, (int) j + y + a, (int) k + z))
+										{
+								world.setBlock((int) i + x, (int) j + y + a, (int) k + z, Block.web.blockID);	
+										}
+							}
+							
+							
 						} else
 							world.setBlock((int) i + x, (int) j + y, (int) k + z, block);
 					}
