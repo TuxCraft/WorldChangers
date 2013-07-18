@@ -9,19 +9,22 @@ import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldChangersGenerator implements IWorldGenerator {
 	
-	public static final int spawnRate = 100;
+	public static final int spawnRate = 80;
 	
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		switch (world.provider.dimensionId) {
-		case 0:
-			generateOverworld(world, random, chunkX, chunkZ);
-			break;
-		case 1:
-			generateEnd(world, random, chunkX, chunkZ);
-			break;
-		case -1:
-			generateNether(world, random, chunkX, chunkZ);
-			break;
+		if(chunkGenerator != null && chunkProvider != null)
+		{
+			switch (world.provider.dimensionId) {
+			case 0:
+				generateOverworld(world, random, chunkX, chunkZ);
+				break;
+			case 1:
+				generateEnd(world, random, chunkX, chunkZ);
+				break;
+			case -1:
+				generateNether(world, random, chunkX, chunkZ);
+				break;
+			}
 		}
 	}
 
