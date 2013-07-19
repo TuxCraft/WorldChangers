@@ -10,243 +10,209 @@ import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.gen.feature.WorldGenDungeons;
+import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class WCChestGenHooks
 {
 
 	public static final String VOLCANO = "volcano";
-	private static final HashMap chestInfo = new HashMap();
-	private int countMin = 0;
-	private int countMax = 0;
-
-	ArrayList<WeightedRandomChestContent> contents = new ArrayList<WeightedRandomChestContent>();
+	public static final String HIVE_SMALL = "hiveSmall";
+	private static final HashMap<String, WCChestGenHooks> WCchestInfo = new HashMap<String, WCChestGenHooks>();
+	
+	private static boolean hasInit = false;
+    static
+    {
+        init();
+    }
 
 	private static void init()
 	{
-
+		if (hasInit)
+        {
+            return;
+        }
+		
+		hasInit = true;
+		
+		addInfo(VOLCANO, WorldGenVolcano.volcanoDungeonLoot, 10, 10);
+		addInfo(HIVE_SMALL, WorldGenGhastHive.ghastHiveSmallChestContents, 3, 5);
+		
 		ItemStack book = new ItemStack(Item.enchantedBook, 1, 0);
-
-		WCChestGenHooks d = new WCChestGenHooks("volcano");
-		d.countMin = 5;
-		d.countMax = 8;
-		chestInfo.put("volcano", d);
-		addDungeonLoot(d, new ItemStack(Item.saddle), 150, 1, 2);
-		addDungeonLoot(d, new ItemStack(Item.redstone), 100, 1, 8);
-		addDungeonLoot(d, new ItemStack(Item.diamond), 50, 1, 1);
-		addDungeonLoot(d, new ItemStack(Item.ingotIron), 100, 1, 4);
-		addDungeonLoot(d, new ItemStack(Item.carrot), 100, 1, 8);
-		addDungeonLoot(d, new ItemStack(Item.pumpkinPie), 100, 1, 8);
-		addDungeonLoot(d, new ItemStack(Item.melonSeeds), 80, 1, 2);
-		addDungeonLoot(d, new ItemStack(Item.appleGold), 50, 1, 2);
-		addDungeonLoot(d, new ItemStack(Item.enderPearl), 80, 1, 4);
-		addDungeonLoot(d, new ItemStack(Item.hoeDiamond), 50, 1, 1);
-		addDungeonLoot(d, new ItemStack(Item.field_111213_cg), 50, 1, 1);
-		addDungeonLoot(d, new ItemStack(Item.field_111216_cf), 75, 1, 1);
-		addDungeonLoot(d, new ItemStack(Item.field_111215_ce), 100, 1, 1);
-		addDungeonLoot(d, new ItemStack(Item.field_111212_ci), 100, 1, 3);
-		addDungeonLoot(d, book, 100, 1, 1);
-		addDungeonLoot(d, book, 100, 1, 1);
+        WeightedRandomChestContent tmp = new WeightedRandomChestContent(book, 1, 1, 1);
+        getInfo(VOLCANO).addItem(tmp);
 	}
-
-	static void addDungeonLoot(WCChestGenHooks dungeon, ItemStack item,
-	        int weight, int min, int max)
-	{
-
-		dungeon.addItem(new WeightedRandomChestContent(item, min, max, weight));
-	}
-
+	
+	static void addDungeonLoot(ChestGenHooks dungeon, ItemStack item, int weight, int min, int max)
+    {
+        dungeon.addItem(new WeightedRandomChestContent(item, min, max, weight));
+    }
+	
+	private static void addInfo(String category, WeightedRandomChestContent[] items, int min, int max)
+    {
+		WCchestInfo.put(category, new WCChestGenHooks(category, items, min, max));
+    }
+	
 	public static WCChestGenHooks getInfo(String category)
-	{
+    {
+        if (!WCchestInfo.containsKey(category))
+        {
+        	WCchestInfo.put(category, new WCChestGenHooks(category));
+        }
+        return (WCChestGenHooks) WCchestInfo.get(category);
+    }
+	
+	public static ItemStack[] generateStacks(Random rand, ItemStack source, int min, int max)
+    {
+        int count = min + (rand.nextInt(max - min + 1));
 
-		if (!chestInfo.containsKey(category))
-		{
-			chestInfo.put(category, new WCChestGenHooks(category));
-		}
-		return (WCChestGenHooks) chestInfo.get(category);
-	}
+        ItemStack[] ret;
+        if (source.getItem() == null)
+        {
+            ret = new ItemStack[0];
+        }
+        else if (count > source.getItem().getItemStackLimit())
+        {
+            ret = new ItemStack[count];
+            for (int x = 0; x < count; x++)
+            {
+                ret[x] = source.copy();
+                ret[x].stackSize = 1;
+            }
+        }
+        else
+        {
+            ret = new ItemStack[1];
+            ret[0] = source.copy();
+            ret[0].stackSize = count;
+        }
+        return ret;
+    }
+	
+	public static WeightedRandomChestContent[] getItems(String category, Random rnd){ return getInfo(category).getItems(rnd); }
+    public static int getCount(String category, Random rand){ return getInfo(category).getCount(rand); }
+    public static void addItem(String category, WeightedRandomChestContent item){ getInfo(category).addItem(item); }
+    public static void removeItem(String category, ItemStack item){ getInfo(category).removeItem(item); }
+    public static ItemStack getOneItem(String category, Random rand){ return getInfo(category).getOneItem(rand); }
 
-	public static ItemStack[] generateStacks(Random rand, ItemStack source,
-	        int min, int max)
-	{
+    private String category;
+    private int countMin = 0;
+    private int countMax = 0;
+    //TO-DO: Privatize this once again when we remove the Deprecated stuff in DungeonHooks
+    ArrayList<WeightedRandomChestContent> contents = new ArrayList<WeightedRandomChestContent>();
 
-		int count = min + rand.nextInt(max - min + 1);
+    public WCChestGenHooks(String category)
+    {
+        this.category = category;
+    }
 
-		ItemStack[] ret;
-		if (source.getItem() == null)
-		{
-			ret = new ItemStack[0];
-		} else if (count > source.getItem().getItemStackLimit())
-		{
-			ret = new ItemStack[count];
-			for (int x = 0; x < count; x++)
-			{
-				ret[x] = source.copy();
-				ret[x].stackSize = 1;
-			}
-		} else
-		{
-			ret = new ItemStack[1];
-			ret[0] = source.copy();
-			ret[0].stackSize = count;
-		}
-		return ret;
-	}
+    public WCChestGenHooks(String category, WeightedRandomChestContent[] items, int min, int max)
+    {
+        this(category);
+        for (WeightedRandomChestContent item : items)
+        {
+            contents.add(item);
+        }
+        countMin = min;
+        countMax = max;
+    }
 
-	public static WeightedRandomChestContent[] getItems(String category,
-	        Random rnd)
-	{
+    /**
+     * Adds a new entry into the possible items to generate.
+     *
+     * @param item The item to add.
+     */
+    public void addItem(WeightedRandomChestContent item)
+    {
+        contents.add(item);
+    }
 
-		return getInfo(category).getItems(rnd);
-	}
+    /**
+     * Removes all items that match the input item stack, Only metadata and item ID are checked.
+     * If the input item has a metadata of -1, all metadatas will match.
+     *
+     * @param item The item to check
+     */
+    public void removeItem(ItemStack item)
+    {
+        Iterator<WeightedRandomChestContent> itr = contents.iterator();
+        while(itr.hasNext())
+        {
+            WeightedRandomChestContent cont = itr.next();
+            if (item.isItemEqual(cont.theItemId) || (item.getItemDamage() == OreDictionary.WILDCARD_VALUE && item.itemID == cont.theItemId.itemID))
+            {
+                itr.remove();
+            }
+        }
+    }
 
-	public static int getCount(String category, Random rand)
-	{
+    /**
+     * Gets an array of all random objects that are associated with this category.
+     *
+     * @return The random objects
+     */
+    public WeightedRandomChestContent[] getItems(Random rnd)
+    {
+        ArrayList<WeightedRandomChestContent> ret = new ArrayList<WeightedRandomChestContent>();
 
-		return getInfo(category).getCount(rand);
-	}
+        for (WeightedRandomChestContent orig : contents)
+        {
+            Item item = orig.theItemId.getItem();
 
-	public static void addItem(String category, WeightedRandomChestContent item)
-	{
+            if (item != null)
+            {
+                WeightedRandomChestContent n = getChestGenBase(this, rnd, orig, item);
+                if (n != null)
+                {
+                    ret.add(n);
+                }
+            }
+        }
 
-		getInfo(category).addItem(item);
-	}
+        return ret.toArray(new WeightedRandomChestContent[ret.size()]);
+    }
+    
+    public WeightedRandomChestContent getChestGenBase(WCChestGenHooks chest, Random rnd, WeightedRandomChestContent original, Item item)
+    {
+        if (item instanceof ItemEnchantedBook)
+        {
+            return ((ItemEnchantedBook)item).func_92112_a(rnd,
+                    original.theMinimumChanceToGenerateItem,
+                    original.theMaximumChanceToGenerateItem, original.itemWeight);
+        }
+        return original;
+    }
 
-	public static void removeItem(String category, ItemStack item)
-	{
+    /**
+     * Gets a random number between countMin and countMax.
+     *
+     * @param rand A RNG
+     * @return A random number where countMin <= num <= countMax
+     */
+    public int getCount(Random rand)
+    {
+        return countMin < countMax ? countMin + rand.nextInt(countMax - countMin) : countMin;
+    }
 
-		getInfo(category).removeItem(item);
-	}
+    /**
+     * Returns a single ItemStack from the possible items in this registry,
+     * Useful if you just want a quick and dirty random Item.
+     *
+     * @param rand  A Random Number gen
+     * @return A single ItemStack, or null if it could not get one.
+     */
+    public ItemStack getOneItem(Random rand)
+    {
+        WeightedRandomChestContent[] items = getItems(rand);
+        WeightedRandomChestContent item = (WeightedRandomChestContent)WeightedRandom.getRandomItem(rand, items);
+        ItemStack[] stacks = ChestGenHooks.generateStacks(rand, item.theItemId, item.theMinimumChanceToGenerateItem, item.theMaximumChanceToGenerateItem);
+        return (stacks.length > 0 ? stacks[0] : null);
+    }
 
-	public static ItemStack getOneItem(String category, Random rand)
-	{
-
-		return getInfo(category).getOneItem(rand);
-	}
-
-	public WCChestGenHooks(String category)
-	{
-
-	}
-
-	public WCChestGenHooks(String category, WeightedRandomChestContent[] items,
-	        int min, int max)
-	{
-
-		this(category);
-		for (WeightedRandomChestContent item : items)
-		{
-			this.contents.add(item);
-		}
-		this.countMin = min;
-		this.countMax = max;
-	}
-
-	public void addItem(WeightedRandomChestContent item)
-	{
-
-		this.contents.add(item);
-	}
-
-	public void removeItem(ItemStack item)
-	{
-
-		Iterator<WeightedRandomChestContent> itr = contents.iterator();
-		while (itr.hasNext())
-		{
-			WeightedRandomChestContent cont = itr.next();
-			if (item.isItemEqual(cont.theItemId)
-			        || item.getItemDamage() == OreDictionary.WILDCARD_VALUE
-			        && item.itemID == cont.theItemId.itemID)
-			{
-				itr.remove();
-			}
-		}
-	}
-
-	public WeightedRandomChestContent[] getItems(Random rnd)
-	{
-
-		ArrayList<WeightedRandomChestContent> ret = new ArrayList<WeightedRandomChestContent>();
-
-		for (WeightedRandomChestContent orig : this.contents)
-		{
-			Item item = orig.theItemId.getItem();
-
-			if (item != null)
-			{
-				WeightedRandomChestContent n = getChestGenBase(this, rnd, orig,
-				        item);
-				if (n != null)
-				{
-					ret.add(n);
-				}
-			}
-		}
-
-		return ret.toArray(new WeightedRandomChestContent[ret.size()]);
-	}
-
-	private WeightedRandomChestContent getChestGenBase(
-	        WCChestGenHooks wcChestGenHooks, Random rnd,
-	        WeightedRandomChestContent orig, Item item)
-	{
-
-		if (item instanceof ItemEnchantedBook)
-		{
-			return ((ItemEnchantedBook) item).func_92112_a(rnd,
-			        orig.theMinimumChanceToGenerateItem,
-			        orig.theMaximumChanceToGenerateItem, orig.itemWeight);
-		}
-
-		return orig;
-	}
-
-	public int getCount(Random rand)
-	{
-
-		return this.countMin < this.countMax ? this.countMin
-		        + rand.nextInt(this.countMax - this.countMin) : this.countMin;
-	}
-
-	public ItemStack getOneItem(Random rand)
-	{
-
-		WeightedRandomChestContent[] items = getItems(rand);
-		WeightedRandomChestContent item = (WeightedRandomChestContent) WeightedRandom
-		        .getRandomItem(rand, items);
-		ItemStack[] stacks = WCChestGenHooks.generateStacks(rand,
-		        item.theItemId, item.theMinimumChanceToGenerateItem,
-		        item.theMaximumChanceToGenerateItem);
-		return stacks.length > 0 ? stacks[0] : null;
-	}
-
-	public int getMin()
-	{
-
-		return this.countMin;
-	}
-
-	public int getMax()
-	{
-
-		return this.countMax;
-	}
-
-	public void setMin(int value)
-	{
-
-		this.countMin = value;
-	}
-
-	public void setMax(int value)
-	{
-
-		this.countMax = value;
-	}
-
-	static
-	{
-		init();
-	}
+    //Accessors
+    public int getMin(){ return countMin; }
+    public int getMax(){ return countMax; }
+    public void setMin(int value){ countMin = value; }
+    public void setMax(int value){ countMax = value; }
 }

@@ -9,7 +9,8 @@ import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldChangersGenerator implements IWorldGenerator {
 	
-	public static final int spawnRate = 80;
+	// Set back to 142
+	public static final int spawnRate = 142;
 	
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		if(chunkGenerator != null && chunkProvider != null)

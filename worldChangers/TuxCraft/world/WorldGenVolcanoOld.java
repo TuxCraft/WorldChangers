@@ -137,7 +137,7 @@ public class WorldGenVolcanoOld extends WorldGenerator {
 		TileEntityChest tileentitychest = (TileEntityChest) world.getBlockTileEntity(x, y + level, z);
 
 		if (tileentitychest != null) {
-			WCChestGenHooks info = WCChestGenHooks.getInfo("volcano");
+			WCChestGenHooks info = (WCChestGenHooks) WCChestGenHooks.getInfo("volcano");
 			WeightedRandomChestContent.generateChestContents(rand, info.getItems(rand), tileentitychest, info.getCount(rand));
 		}
 
