@@ -4,9 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 import worldChangers.TuxCraft.blocks.BlackLight;
 import worldChangers.TuxCraft.blocks.BlockVolcanicRock;
-import worldChangers.TuxCraft.blocks.InfiniteFire;
 import worldChangers.TuxCraft.blocks.WCBlock;
 import worldChangers.TuxCraft.blocks.WCSlabs;
 import worldChangers.TuxCraft.blocks.WCStairs;
@@ -43,7 +43,6 @@ public class WorldChangersCore {
 	public static Block ashenSingleSlabTile;
 	public static Block blackLight;
 	public static Block astralCore;
-	public static Block infiniteFire;
 	public static Block ghastHive;
 
 	public static Item ash;
@@ -108,11 +107,6 @@ public class WorldChangersCore {
 				.propertyGroup("glowingStone", null);
 		GameRegistry.registerBlock(astralCore, "AstralCore");
 		LanguageRegistry.addName(astralCore, "Astral Core");
-
-		infiniteFire = new InfiniteFire(blockIDBase + 10).setHardness(0.0F)
-				.setLightValue(0.5F).setUnlocalizedName("fire")
-				.func_111022_d("fire");
-		GameRegistry.registerBlock(infiniteFire, "infiniteFire");
 		
 		ghastHive = new WCBlock(blockIDBase + 11, Material.web, "ghastHive")
 			.propertyGroup("stone", null);
@@ -126,11 +120,13 @@ public class WorldChangersCore {
 				.setCreativeTab(CreativeTabs.tabDecorations);
 		LanguageRegistry.addName(blackLightItem, "Black Light");
 
-		GameRegistry.registerWorldGenerator(this.worldGenerator);
+		//GameRegistry.registerWorldGenerator(this.worldGenerator);
 
 		WCrecipes.addRecipes();
 
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		proxy.registerRenderers();
+		
+		MinecraftForge.EVENT_BUS.register(new EventHookContainerClass());
 	}
 }

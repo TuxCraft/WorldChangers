@@ -16,9 +16,15 @@ public class WCrecipes {
 		Block stone = Block.stone;
 
 		Item ash = WorldChangersCore.ash;
-
+		Item blackLight = WorldChangersCore.blackLightItem;
+		
+		Item glowstone = Item.glowstone;
+		Item quartz = Item.netherQuartz;
+		
+		ItemStack inkSack = new ItemStack(Item.dyePowder, 1, 0);
 		ItemStack charcoal = new ItemStack(Item.coal, 1, 1);
 
+		GameRegistry.addShapelessRecipe(new ItemStack(blackLight), quartz, quartz, inkSack, glowstone);
 		GameRegistry.addShapelessRecipe(new ItemStack(ashenStone), ash, stone);
 		GameRegistry.addShapelessRecipe(new ItemStack(ash, 2), charcoal);
 
