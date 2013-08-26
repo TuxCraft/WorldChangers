@@ -12,8 +12,8 @@ import worldChangers.TuxCraft.world.WorldGenVolcano;
 public class EventHookContainerClass
 {
     
-    // Set back to 100
-    public static final int spawnRate = 85;
+    // Set back to 90
+    public static final int spawnRate = 90;
     
     @ForgeSubscribe
     public void decorateChunk(DecorateBiomeEvent event)
