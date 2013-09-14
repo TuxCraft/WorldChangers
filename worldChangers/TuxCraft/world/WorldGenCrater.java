@@ -88,9 +88,7 @@ public class WorldGenCrater extends WorldGenerator {
 			for (double j = -r; j < r; j++)
 				if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= r) {
 					int randomInt = random.nextInt(50);
-					if (randomInt == 1)
-						world.setBlock((int) i + x, y, (int) j + z, Block.fire.blockID);
-					else if (randomInt < 4)
+					if (randomInt < 4)
 						world.setBlockToAir((int) i + x, y, (int) j + z);
 				}
 	}

@@ -12,98 +12,106 @@ import net.minecraftforge.common.ChestGenHooks;
 import worldChangers.TuxCraft.WorldChangersCore;
 import worldChangers.TuxCraft.WorldGenUtils;
 
-public class WorldGenVolcano extends WorldGenerator {
+public class WorldGenVolcano extends WorldGenerator
+{
 
-	public static final WeightedRandomChestContent[] volcanoDungeonLoot = new WeightedRandomChestContent[] {
-		new WeightedRandomChestContent(Item.saddle.itemID, 0, 1, 2, 8),
-		new WeightedRandomChestContent(Item.redstone.itemID, 0, 1, 8, 6),
-		new WeightedRandomChestContent(Item.diamond.itemID, 0, 1, 2, 3),
-		new WeightedRandomChestContent(Item.ingotIron.itemID, 0, 1, 4, 8),
-		new WeightedRandomChestContent(Item.enderPearl.itemID, 0, 1, 1, 5),
-		new WeightedRandomChestContent(Item.pumpkinPie.itemID, 0, 1, 4, 8),
-		new WeightedRandomChestContent(Item.field_111213_cg.itemID, 0, 1, 1, 4),
-		new WeightedRandomChestContent(Item.field_111216_cf.itemID, 0, 1, 1, 6),
-		new WeightedRandomChestContent(Item.field_111215_ce.itemID, 0, 1, 1, 8),
-		new WeightedRandomChestContent(Item.field_111212_ci.itemID, 0, 1, 1, 8)
-		
-		};
-	
-	public WorldGenVolcano(boolean b) {
-		super(b);
-	}
+    public static final WeightedRandomChestContent[] volcanoDungeonLoot = new WeightedRandomChestContent[] {
+                                                                        new WeightedRandomChestContent(Item.saddle.itemID, 0, 1, 2, 8),
+                                                                        new WeightedRandomChestContent(Item.redstone.itemID, 0, 1, 8, 6),
+                                                                        new WeightedRandomChestContent(Item.diamond.itemID, 0, 1, 2, 3),
+                                                                        new WeightedRandomChestContent(Item.ingotIron.itemID, 0, 1, 4, 8),
+                                                                        new WeightedRandomChestContent(Item.enderPearl.itemID, 0, 1, 1, 5),
+                                                                        new WeightedRandomChestContent(Item.pumpkinPie.itemID, 0, 1, 4, 8),
+                                                                        new WeightedRandomChestContent(Item.field_111213_cg.itemID, 0, 1, 1, 4),
+                                                                        new WeightedRandomChestContent(Item.field_111216_cf.itemID, 0, 1, 1, 6),
+                                                                        new WeightedRandomChestContent(Item.field_111215_ce.itemID, 0, 1, 1, 8),
+                                                                        new WeightedRandomChestContent(Item.field_111212_ci.itemID, 0, 1, 1, 8)
 
-	public boolean generate(World world, Random random, int x, int y, int z) {
+                                                                        };
 
-		int baseRadius = (random.nextInt(4) + 5) * 5; // Bottom Width
-		int mouthRadius = random.nextInt(5) + 2; // Top Width
-		int heightScale = random.nextInt(3) + 2; // Height
+    public WorldGenVolcano(boolean b)
+    {
+        super(b);
+    }
 
-		y = WorldGenUtils.getMinimumBlockHeight(x - baseRadius, z - baseRadius,
-				baseRadius * 2, baseRadius * 2, world);
+    public boolean generate(World world, Random random, int x, int y, int z)
+    {
 
-		int curRaidus = baseRadius;
-		int curY = y;
-		int curChanceOfNarrowing = heightScale;
+        int baseRadius = (random.nextInt(4) + 5) * 5; // Bottom Width
+        int mouthRadius = random.nextInt(5) + 2; // Top Width
+        int heightScale = random.nextInt(3) + 2; // Height
 
-		while (curRaidus > mouthRadius) {
-			drawVolcanoCircle(x, curY, z, curRaidus, world,
-					WorldChangersCore.volcanicRock.blockID,
-					Block.lavaMoving.blockID, random);
-			WorldGenUtils.drawCircle(x, curY, z, curRaidus - 3, world,
-					Block.lavaMoving.blockID);
+        y = WorldGenUtils.getMinimumBlockHeight(x - baseRadius, z - baseRadius, baseRadius * 2, baseRadius * 2, world);
 
-			curChanceOfNarrowing = heightScale;
-			curRaidus--;
+        int curRaidus = baseRadius;
+        int curY = y;
+        int curChanceOfNarrowing = heightScale;
 
-			curChanceOfNarrowing--;
-			curY++;
-		}
-		curY--;
+        while (curRaidus > mouthRadius)
+        {
+            drawVolcanoCircle(x, curY, z, curRaidus, world,
+                    WorldChangersCore.volcanicRock.blockID,
+                    Block.lavaMoving.blockID, random);
+            WorldGenUtils.drawCircle(x, curY, z, curRaidus - 3, world,
+                    Block.lavaMoving.blockID);
 
-		for (int i = curY; i > y; i--)
-			drawVolcanoCircle(x, i, z, mouthRadius - 2, world,
-					Block.lavaMoving.blockID,
-					WorldChangersCore.volcanicRock.blockID, random);
+            curChanceOfNarrowing = heightScale;
+            curRaidus--;
 
-		int volcanoDungeonOffset = ((curY - y) / 2);
+            curChanceOfNarrowing--;
+            curY++;
+        }
+        curY--;
 
-		WorldGenUtils.drawCube(x - 2, y - 5 + volcanoDungeonOffset, z - 2, 5,
-				5, 5, Block.netherBrick.blockID, world);
-		WorldGenUtils.drawCube(x - 2, y - 4 + volcanoDungeonOffset, z - 2, 5,
-				3, 5, Block.fenceIron.blockID, world);
-		WorldGenUtils.drawCube(x - 1, y - 4 + volcanoDungeonOffset, z - 1, 3,
-				4, 3, Block.stoneBrick.blockID, world);
-		WorldGenUtils.clearCube(x - 1, y - 4 + volcanoDungeonOffset, z - 1, 3,
-				3, 3, world);
+        for (int i = curY; i > y; i--)
+            drawVolcanoCircle(x, i, z, mouthRadius - 2, world,
+                    Block.lavaMoving.blockID,
+                    WorldChangersCore.volcanicRock.blockID, random);
 
-		world.setBlock(x, y - 4 + volcanoDungeonOffset, z, Block.chest.blockID);
-		TileEntityChest tileentitychest = (TileEntityChest) world
-				.getBlockTileEntity(x, y - 4 + volcanoDungeonOffset, z);
+        int volcanoDungeonOffset = ((curY - y) / 2);
 
-		if (tileentitychest != null) {
-			WCChestGenHooks info = WCChestGenHooks.getInfo(WCChestGenHooks.VOLCANO);
-			WeightedRandomChestContent.generateChestContents(random,
-					info.getItems(random), tileentitychest,
-					info.getCount(random));
-		}
+        WorldGenUtils.drawCube(x - 2, y - 5 + volcanoDungeonOffset, z - 2, 5,
+                5, 5, Block.netherBrick.blockID, world);
+        WorldGenUtils.drawCube(x - 2, y - 4 + volcanoDungeonOffset, z - 2, 5,
+                3, 5, Block.fenceIron.blockID, world);
+        WorldGenUtils.drawCube(x - 1, y - 4 + volcanoDungeonOffset, z - 1, 3,
+                4, 3, Block.stoneBrick.blockID, world);
+        WorldGenUtils.clearCube(x - 1, y - 4 + volcanoDungeonOffset, z - 1, 3,
+                3, 3, world);
 
-		return true;
-	}
+        world.setBlock(x, y - 4 + volcanoDungeonOffset, z, Block.chest.blockID);
+        TileEntityChest tileentitychest = (TileEntityChest) world
+                .getBlockTileEntity(x, y - 4 + volcanoDungeonOffset, z);
 
-	public static void drawVolcanoCircle(int x, int y, int z, double r,
-			World world, int bid, int b2id, Random random) {
-		for (double i = -r; i < r; i++)
-			for (double j = -r; j < r; j++)
-				if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= r) {
+        if (tileentitychest != null)
+        {
+            WCChestGenHooks info = WCChestGenHooks.getInfo(WCChestGenHooks.VOLCANO);
+            WeightedRandomChestContent.generateChestContents(random,
+                    info.getItems(random), tileentitychest,
+                    info.getCount(random));
+        }
 
-					int randomInt = random.nextInt(150);
+        return true;
+    }
 
-					if (randomInt == 1)
-						world.setBlock((int) i + x, y, (int) j + z, b2id);
-					else if (randomInt < 30) {
-						world.setBlockToAir((int) i + x, y, (int) j + z);
-					} else
-						world.setBlock((int) i + x, y, (int) j + z, bid);
-				}
-	}
+    public static void drawVolcanoCircle(int x, int y, int z, double r,
+            World world, int bid, int b2id, Random random)
+    {
+        for (double i = -r; i < r; i++)
+            for (double j = -r; j < r; j++)
+                if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2)) <= r)
+                {
+
+                    int randomInt = random.nextInt(150);
+
+                    if (randomInt == 1)
+                        world.setBlock((int) i + x, y, (int) j + z, b2id);
+                    else if (randomInt < 30)
+                    {
+                        world.setBlockToAir((int) i + x, y, (int) j + z);
+                    }
+                    else
+                        world.setBlock((int) i + x, y, (int) j + z, bid);
+                }
+    }
 }

@@ -14,9 +14,10 @@ public class EventHookContainerClass
     
     // Set back to 90
     public static final int spawnRate = 90;
+    // Note: craters spawn 2x as much
     
     @ForgeSubscribe
-    public void decorateChunk(DecorateBiomeEvent event)
+    public void decorateChunk(DecorateBiomeEvent.Post event)
     {
         switch (event.world.provider.dimensionId)
         {
@@ -49,7 +50,7 @@ public class EventHookContainerClass
                 System.out.println("[World Changers] Volcono spawned around " + x + " " + y + " " + z + " In biome " + String.valueOf(world.getBiomeGenForCoords(x, z).biomeName) + ": Took " + (System.currentTimeMillis() - start) + " milliseconds");
             }
 
-            if (random.nextInt(spawnRate) == 1)
+            if (random.nextInt((int) (spawnRate / 2)) == 1)
             {
                 long start = System.currentTimeMillis();
                 new WorldGenCrater().generate(world, random, x, y, z);
