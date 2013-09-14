@@ -2,6 +2,8 @@ package worldChangers.TuxCraft.blocks;
 
 import java.util.Random;
 
+import worldChangers.TuxCraft.WorldChangersCore;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHalfSlab;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -24,7 +26,7 @@ public class WCSlabs extends BlockHalfSlab
 	
 		super(par1, par2, block.blockMaterial);
 		this.block = block;
-		this.setCreativeTab(CreativeTabs.tabBlock);
+		this.setCreativeTab(WorldChangersCore.creativeTab);
 		this.setUnlocalizedName(s);
 	}
 	

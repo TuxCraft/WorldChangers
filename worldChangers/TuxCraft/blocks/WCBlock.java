@@ -27,9 +27,8 @@ public class WCBlock extends Block
 	
 	public WCBlock(int id, Material m, String s)
 	{
-	
 		super(id, m);
-		this.setCreativeTab(CreativeTabs.tabBlock);
+		this.setCreativeTab(WorldChangersCore.creativeTab);
 		this.textureName = s;
 		this.setUnlocalizedName(s);
 	}

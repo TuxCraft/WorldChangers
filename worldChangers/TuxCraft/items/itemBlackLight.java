@@ -10,17 +10,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 
-public class itemBlackLight extends ItemReed
+public class ItemBlackLight extends ItemReed
 {
 
 	private String textureName;
 	
-	public itemBlackLight(int par1, String s)
+	public ItemBlackLight(int par1, String s)
 	{
-	
 		super(par1, WorldChangersCore.blackLight);
 		this.textureName = s;
 	    this.setUnlocalizedName(s);
+	    this.setCreativeTab(WorldChangersCore.creativeTab);
 	    this.setMaxStackSize(64);
 	}	
 	

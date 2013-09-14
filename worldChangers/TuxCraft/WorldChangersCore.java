@@ -1,17 +1,21 @@
 package worldChangers.TuxCraft;
 
+import java.io.File;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.Property;
 import worldChangers.TuxCraft.blocks.BlackLight;
 import worldChangers.TuxCraft.blocks.BlockVolcanicRock;
 import worldChangers.TuxCraft.blocks.WCBlock;
 import worldChangers.TuxCraft.blocks.WCSlabs;
 import worldChangers.TuxCraft.blocks.WCStairs;
 import worldChangers.TuxCraft.items.WCItem;
-import worldChangers.TuxCraft.items.itemBlackLight;
+import worldChangers.TuxCraft.items.ItemBlackLight;
 import worldChangers.TuxCraft.world.WorldChangersGenerator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -48,7 +52,11 @@ public class WorldChangersCore {
 	public static Item ash;
 	public static Item blackLightItem;
 
-	public static int blockIDBase = 180;
+	public static int volcanoSpawnRate;
+	public static int ghastHiveSpawnRate;
+	public static int craterSpawnRate;
+
+	public static CreativeTabsWorldChangers creativeTab = new CreativeTabsWorldChangers("World Changers");
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -58,75 +66,84 @@ public class WorldChangersCore {
 	@Mod.EventHandler
 	public void load(FMLInitializationEvent event) {
 
-		volcanicRock = new BlockVolcanicRock(blockIDBase, "volcanicRock")
-				.propertyGroup("stone", null);
+		Configuration config = new Configuration(new File("WorldChangers.cfg"));
+		config.load();
+
+		volcanicRock = new BlockVolcanicRock(config.getBlock("volcanicRock", 180).getInt(), "volcanicRock").propertyGroup("stone", null);
 		GameRegistry.registerBlock(volcanicRock, "volcanicRock");
 		LanguageRegistry.addName(volcanicRock, "Volcanic Rock");
 
-		ashenStone = new WCBlock(blockIDBase + 1, Material.rock, "ashenStone")
-				.propertyGroup("stone", null);
+		ashenStone = new WCBlock(config.getBlock("ashenStone", 181).getInt(), Material.rock, "ashenStone").propertyGroup("stone", null);
 		GameRegistry.registerBlock(ashenStone, "ashenStone");
 		LanguageRegistry.addName(ashenStone, "Ashen Stone");
 
-		ashenStoneBrick = new WCBlock(blockIDBase + 2, Material.rock,
-				"ashenStoneTile").propertyGroup("stone", null);
+		ashenStoneBrick = new WCBlock(config.getBlock("ashenStoneTile", 182).getInt(), Material.rock, "ashenStoneTile").propertyGroup("stone", null);
 		GameRegistry.registerBlock(ashenStoneBrick, "ashenStoneBrick");
 		LanguageRegistry.addName(ashenStoneBrick, "Ashen Stone Tile");
 
-		ashenStonePillar = new WCBlock(blockIDBase + 3, Material.rock,
-				"ashenStonePillar").propertyGroup("stone", "pillar");
+		ashenStonePillar = new WCBlock(config.getBlock("ashenStonePillar", 183).getInt(), Material.rock, "ashenStonePillar").propertyGroup("stone", "pillar");
 		GameRegistry.registerBlock(ashenStonePillar, "ashenStonePillar");
 		LanguageRegistry.addName(ashenStonePillar, "Ashen Stone Pillar");
 
-		ashenStairs = new WCStairs(blockIDBase + 4, ashenStone, 0,
-				"ashenStairs").propertyGroup("stone", null);
+		ashenStairs = new WCStairs(config.getBlock("ashenStairs", 184).getInt(), ashenStone, 0, "ashenStairs").propertyGroup("stone", null);
 		GameRegistry.registerBlock(ashenStairs, "ashenStairs");
 		LanguageRegistry.addName(ashenStairs, "Ashen Stone Stairs");
 
-		ashenSingleSlab = new WCSlabs(blockIDBase + 5, ashenStone, false,
-				"ashenSlab").propertyGroup("stone", null);
+		ashenSingleSlab = new WCSlabs(config.getBlock("ashenSingleSlab", 185).getInt(), ashenStone, false, "ashenSlab").propertyGroup("stone", null);
 		GameRegistry.registerBlock(ashenSingleSlab, "ashenSingleSlab");
 		LanguageRegistry.addName(ashenSingleSlab, "Ashen Stone Slab");
 
-		ashenStairsTile = new WCStairs(blockIDBase + 6, ashenStoneBrick, 0,
-				"ashenStairs").propertyGroup("stone", null);
-		GameRegistry.registerBlock(ashenStairsTile, "ashenStairsTile");
-		LanguageRegistry.addName(ashenStairsTile, "Ashen Tile Stairs");
+		// ashenStairsTile = new WCStairs(config.getBlock("ashenStairs",
+		// 186).getInt(), ashenStoneBrick, 0,
+		// "ashenStairs").propertyGroup("stone", null);
+		// GameRegistry.registerBlock(ashenStairsTile, "ashenStairsTile");
+		// LanguageRegistry.addName(ashenStairsTile, "Ashen Tile Stairs");
 
-		ashenSingleSlabTile = new WCSlabs(blockIDBase + 7, ashenStoneBrick,
-				false, "ashenSlab").propertyGroup("stone", null);
+		ashenSingleSlabTile = new WCSlabs(config.getBlock("ashenSingleSlabTile", 187).getInt(), ashenStoneBrick, false, "ashenSlab").propertyGroup("stone", null);
 		GameRegistry.registerBlock(ashenSingleSlabTile, "ashenSingleSlabTile");
 		LanguageRegistry.addName(ashenSingleSlabTile, "Ashen Tile Slab");
 
-		blackLight = new BlackLight(blockIDBase + 8, "blackLight")
-				.propertyGroup("lightSource", null);
+		blackLight = new BlackLight(config.getBlock("blackLight", 188).getInt(), "blackLight").propertyGroup("lightSource", null);
 		GameRegistry.registerBlock(blackLight, "BlackLight");
 		LanguageRegistry.addName(blackLight, "Black Light");
 
-		astralCore = new WCBlock(blockIDBase + 9, Material.rock, "astralCore")
-				.propertyGroup("glowingStone", null);
+		astralCore = new WCBlock(config.getBlock("astralCore", 189).getInt(), Material.rock, "astralCore").propertyGroup("glowingStone", null);
 		GameRegistry.registerBlock(astralCore, "AstralCore");
 		LanguageRegistry.addName(astralCore, "Astral Core");
-		
-		ghastHive = new WCBlock(blockIDBase + 11, Material.web, "ghastHive")
-			.propertyGroup("stone", null);
+
+		ghastHive = new WCBlock(config.getBlock("ghastHive", 190).getInt(), Material.web, "ghastHive").propertyGroup("stone", null);
 		GameRegistry.registerBlock(ghastHive, "ghastHive");
 		LanguageRegistry.addName(ghastHive, "Ghast Hive Bindings");
 
-		ash = new WCItem(8000, "ash").setCreativeTab(CreativeTabs.tabMaterials);
+		ash = new WCItem(config.getItem("ash", 8000).getInt(), "ash");
 		LanguageRegistry.addName(ash, "Ash");
 
-		blackLightItem = new itemBlackLight(8001, "blackLight")
-				.setCreativeTab(CreativeTabs.tabDecorations);
+		blackLightItem = new ItemBlackLight(config.getItem("blackLight", 8001).getInt(), "blackLight");
+
 		LanguageRegistry.addName(blackLightItem, "Black Light");
 
-		//GameRegistry.registerWorldGenerator(this.worldGenerator);
+		Property volcanoSpawnRateP = config.get("Spawn Rates", "volcanoSpawnRate", 142);
+		volcanoSpawnRateP.comment = "Higher values = less spawns";
+
+		Property ghastHiveSpawnRateP = config.get("Spawn Rates", "ghastHiveSpawnRate", 142);
+		ghastHiveSpawnRateP.comment = "Higher values = less spawns";
+
+		Property craterSpawnRateP = config.get("Spawn Rates", "craterSpawnRate", 142);
+		craterSpawnRateP.comment = "Higher values = less spawns";
+
+		volcanoSpawnRate = volcanoSpawnRateP.getInt();
+		ghastHiveSpawnRate = ghastHiveSpawnRateP.getInt();
+		craterSpawnRate = craterSpawnRateP.getInt();
+
+		LanguageRegistry.instance().addStringLocalization("itemGroup.World Changers", "World Changers");
+
+		config.save();
 
 		WCrecipes.addRecipes();
 
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		proxy.registerRenderers();
-		
+
 		MinecraftForge.EVENT_BUS.register(new EventHookContainerClass());
 	}
 }

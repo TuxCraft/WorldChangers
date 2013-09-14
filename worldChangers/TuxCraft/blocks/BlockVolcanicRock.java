@@ -1,6 +1,5 @@
 package worldChangers.TuxCraft.blocks;
 
-
 import static net.minecraftforge.common.ForgeDirection.UP;
 
 import java.util.Random;
@@ -17,29 +16,23 @@ import worldChangers.TuxCraft.WorldChangersCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockVolcanicRock extends WCBlock
-{
-	
+public class BlockVolcanicRock extends WCBlock {
+
 	private String textureName;
-	
-	public BlockVolcanicRock(int id, String s)
-	{
-	
+
+	public BlockVolcanicRock(int id, String s) {
 		super(id, Material.rock, s);
-		this.setCreativeTab(CreativeTabs.tabBlock);
+		this.setCreativeTab(WorldChangersCore.creativeTab);
 		this.textureName = s;
 		this.setUnlocalizedName(s);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void randomDisplayTick(World world, int x, int y, int z, Random rand)
-	{
-	
-		if (world.getBlockMaterial(x, y + 1, z) == Material.air)
-		{
-			if (rand.nextInt(1000) == 0)
-			{
+	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+
+		if (world.getBlockMaterial(x, y + 1, z) == Material.air) {
+			if (rand.nextInt(1000) == 0) {
 				double d1 = x + rand.nextFloat();
 				double d2 = y + this.maxY;
 				double d3 = z + rand.nextFloat();
@@ -47,26 +40,22 @@ public class BlockVolcanicRock extends WCBlock
 			}
 		}
 	}
-	
+
 	@Override
-	public int idDropped(int par1, Random rand, int par3)
-	{
-	
-		if (rand.nextInt(4) == 0)
-		{
+	public int idDropped(int par1, Random rand, int par3) {
+
+		if (rand.nextInt(4) == 0) {
 			return WorldChangersCore.ash.itemID;
 		}
-		
+
 		return WorldChangersCore.volcanicRock.blockID;
 	}
-	
-	public boolean isFireSource(World world, int x, int y, int z, int metadata, ForgeDirection side)
-    {
-        if (side == UP)
-        {
-            return true;
-        }
-        
-        return false;
-    }
+
+	public boolean isFireSource(World world, int x, int y, int z, int metadata, ForgeDirection side) {
+		if (side == UP) {
+			return true;
+		}
+
+		return false;
+	}
 }

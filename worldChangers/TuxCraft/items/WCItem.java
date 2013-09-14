@@ -14,6 +14,7 @@ public class WCItem extends Item
     this.textureName = s;
     this.setUnlocalizedName(s);
     this.setMaxStackSize(64);
+    this.setCreativeTab(WorldChangersCore.creativeTab);
   }
 
   @Override
