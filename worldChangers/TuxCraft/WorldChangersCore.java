@@ -4,19 +4,19 @@ import java.io.File;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Property;
 import worldChangers.TuxCraft.blocks.BlackLight;
 import worldChangers.TuxCraft.blocks.BlockVolcanicRock;
+import worldChangers.TuxCraft.blocks.CaveThingy;
 import worldChangers.TuxCraft.blocks.WCBlock;
 import worldChangers.TuxCraft.blocks.WCSlabs;
 import worldChangers.TuxCraft.blocks.WCStairs;
-import worldChangers.TuxCraft.items.WCItem;
 import worldChangers.TuxCraft.items.ItemBlackLight;
-import worldChangers.TuxCraft.world.WorldChangersGenerator;
+import worldChangers.TuxCraft.items.WCItem;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -35,7 +35,6 @@ public class WorldChangersCore {
 	@SidedProxy(clientSide = "worldChangers.TuxCraft.ClientProxy", serverSide = "worldChangers.TuxCraft.CommonProxy")
 	public static CommonProxy proxy;
 	public static final String modid = "World Changers";
-	WorldChangersGenerator worldGenerator = new WorldChangersGenerator();
 
 	public static Block volcanicRock;
 	public static Block ashenStone;
@@ -44,6 +43,7 @@ public class WorldChangersCore {
 	public static Block ashenStairs;
 	public static Block ashenSingleSlab;
 	public static Block ashenStairsTile;
+	public static CaveThingy caveThingyBlock;
 	public static Block ashenSingleSlabTile;
 	public static Block blackLight;
 	public static Block astralCore;
@@ -55,6 +55,9 @@ public class WorldChangersCore {
 	public static int volcanoSpawnRate;
 	public static int ghastHiveSpawnRate;
 	public static int craterSpawnRate;
+	
+	public static CaveThingyRendender caveThingyRendender;
+	public static int caveThingyRenderId = 0;
 
 	public static CreativeTabsWorldChangers creativeTab = new CreativeTabsWorldChangers("World Changers");
 
@@ -66,6 +69,10 @@ public class WorldChangersCore {
 	@Mod.EventHandler
 	public void load(FMLInitializationEvent event) {
 
+		caveThingyRendender = new CaveThingyRendender();
+		caveThingyRenderId = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(caveThingyRenderId, caveThingyRendender);
+		
 		Configuration config = new Configuration(new File("WorldChangers.cfg"));
 		config.load();
 
@@ -115,6 +122,10 @@ public class WorldChangersCore {
 		GameRegistry.registerBlock(ghastHive, "ghastHive");
 		LanguageRegistry.addName(ghastHive, "Ghast Hive Bindings");
 
+		caveThingyBlock = new CaveThingy(config.getBlock("caveThingy", 191).getInt(), Material.rock, "caveThingy");
+		GameRegistry.registerBlock(caveThingyBlock, "caveThingy");
+		LanguageRegistry.addName(caveThingyBlock, "Cave Thingy");
+		
 		ash = new WCItem(config.getItem("ash", 8000).getInt(), "ash");
 		LanguageRegistry.addName(ash, "Ash");
 
@@ -128,7 +139,7 @@ public class WorldChangersCore {
 		Property ghastHiveSpawnRateP = config.get("Spawn Rates", "ghastHiveSpawnRate", 142);
 		ghastHiveSpawnRateP.comment = "Higher values = less spawns";
 
-		Property craterSpawnRateP = config.get("Spawn Rates", "craterSpawnRate", 142);
+		Property craterSpawnRateP = config.get("Spawn Rates", "craterSpawnRate", 142 / 2);
 		craterSpawnRateP.comment = "Higher values = less spawns";
 
 		volcanoSpawnRate = volcanoSpawnRateP.getInt();
