@@ -25,6 +25,8 @@ public class WorldGenGeode extends WorldGenerator {
 
 	public boolean generate(World world, Random random, int x, int y, int z) {
 
+		y = random.nextInt(10) + 20;
+
 		double raidus = random.nextInt(5) + 7;
 
 		drawRandomSphere(x, y, z, raidus, random, world);
@@ -79,13 +81,13 @@ public class WorldGenGeode extends WorldGenerator {
 					if (Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2) + Math.pow(k, 2)) <= r)
 						if (world.getBlockId((int) i + x, (int) j + y, (int) k + z) == Block.sponge.blockID) {
 							world.setBlockToAir((int) i + x, (int) j + y, (int) k + z);
-							int height = rand.nextInt(3) + 2;
+							int height = rand.nextInt(5) + 2;
 							for (int h = 0; h < height; h++)
 								if (world.getBlockId((int) i + x, (int) j + y + 1 + h, (int) k + z) == 0 && world.getBlockId((int) i + x, (int) j + y + 2 + h, (int) k + z) == 0)
 									world.setBlock((int) i + x, (int) j + y + h, (int) k + z, WorldChangersCore.caveThingyBlock.blockID);
 						} else if (world.getBlockId((int) i + x, (int) j + y, (int) k + z) == Block.brick.blockID) {
 							world.setBlockToAir((int) i + x, (int) j + y, (int) k + z);
-							int height = rand.nextInt(3) + 2;
+							int height = rand.nextInt(5) + 2;
 							for (int h = 0; h < height; h++)
 								if (world.getBlockId((int) i + x, (int) j + y - 1 - h, (int) k + z) == 0 && world.getBlockId((int) i + x, (int) j + y - 2 - h, (int) k + z) == 0)
 									world.setBlock((int) i + x, (int) j + y - h, (int) k + z, WorldChangersCore.caveThingyBlock.blockID, 9, 3);

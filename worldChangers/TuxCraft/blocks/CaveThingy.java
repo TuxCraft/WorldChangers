@@ -34,5 +34,33 @@ public class CaveThingy extends Block {
 	public int quantityDropped(Random par1Random) {
 		return 0;
 	}
+	
+	  @Override
+		public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
+	    {
+	    	
+	            switch (par5)
+	            {
+	                case 0:
+	                	par9 = 9;
+	                	break;
+	                case 1:
+	                	par9 = 0;
+	                	break;
+	                case 2:
+	                	par9 = 0;
+	                    break;
+	                case 3:
+	                	par9 = 0;
+	                    break;
+	                case 4:
+	                	par9 = 0;
+	                    break;
+	                case 5:
+	                    par9 = 0;
+	            }
+	            
+	            return par9;
 
+	    }
 }

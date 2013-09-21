@@ -16,8 +16,6 @@ public class CaveThingyRendender implements ISimpleBlockRenderingHandler {
 
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)  {
 		
-		System.out.println("G=hia");
-		
 		Tessellator t = Tessellator.instance;
 
 		t.setBrightness((int) (16));
@@ -198,7 +196,7 @@ public class CaveThingyRendender implements ISimpleBlockRenderingHandler {
 	}
 
 	public boolean shouldRender3DInInventory() {
-		return true;
+		return false;
 	}
 
 	public int getRenderId() {

@@ -6,10 +6,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import worldChangers.TuxCraft.world.WorldGenCrater;
+import worldChangers.TuxCraft.world.WorldGenGeode;
 import worldChangers.TuxCraft.world.WorldGenGhastHive;
 import worldChangers.TuxCraft.world.WorldGenVolcano;
 
 public class EventHookContainerClass {
+
+	// TODO Tux, generate the geodes in the world, heres the code:
+	// WorldGenGeode geode = new WorldGenGeode();
+	// geode.generate(world, new Random(), (int) player.posX, (int) player.posY,
+	// (int) player.posZ);
 
 	@ForgeSubscribe
 	public void decorateChunk(DecorateBiomeEvent.Post event) {
@@ -40,6 +46,10 @@ public class EventHookContainerClass {
 				long start = System.currentTimeMillis();
 				new WorldGenCrater().generate(world, random, x, y, z);
 				System.out.println("[World Changers] Crater spawned around " + x + " " + y + " " + z + " In biome " + String.valueOf(world.getBiomeGenForCoords(x, z).biomeName) + ": Took " + (System.currentTimeMillis() - start) + " milliseconds");
+			} else if (random.nextInt(WorldChangersCore.geodeSpawnRate) == 1) {
+				long start = System.currentTimeMillis();
+				new WorldGenGeode().generate(world, random, x, y, z);
+				System.out.println("[World Changers] Geode spawned around " + x + " " + 30 + " " + z + " In biome " + String.valueOf(world.getBiomeGenForCoords(x, z).biomeName) + ": Took " + (System.currentTimeMillis() - start) + " milliseconds");
 			}
 		}
 		return true;

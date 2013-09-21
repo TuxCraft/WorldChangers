@@ -55,6 +55,7 @@ public class WorldChangersCore {
 	public static int volcanoSpawnRate;
 	public static int ghastHiveSpawnRate;
 	public static int craterSpawnRate;
+	public static int geodeSpawnRate;
 	
 	public static CaveThingyRendender caveThingyRendender;
 	public static int caveThingyRenderId = 0;
@@ -141,10 +142,14 @@ public class WorldChangersCore {
 
 		Property craterSpawnRateP = config.get("Spawn Rates", "craterSpawnRate", 142 / 2);
 		craterSpawnRateP.comment = "Higher values = less spawns";
+		
+		Property geodeSpawnRateP = config.get("Spawn Rates", "geodeSpawnRate", 142);
+		craterSpawnRateP.comment = "Higher values = less spawns";
 
 		volcanoSpawnRate = volcanoSpawnRateP.getInt();
 		ghastHiveSpawnRate = ghastHiveSpawnRateP.getInt();
 		craterSpawnRate = craterSpawnRateP.getInt();
+		geodeSpawnRate = geodeSpawnRateP.getInt();
 
 		LanguageRegistry.instance().addStringLocalization("itemGroup.World Changers", "World Changers");
 

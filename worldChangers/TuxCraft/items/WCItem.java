@@ -20,15 +20,7 @@ public class WCItem extends Item {
 		this.setMaxStackSize(64);
 		this.setCreativeTab(WorldChangersCore.creativeTab);
 	}
-
-	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-
-		WorldGenGeode geode = new WorldGenGeode();
-		geode.generate(world, new Random(), (int) player.posX, (int) player.posY, (int) player.posZ);
-
-		return itemStack;
-	}
-
+	
 	@Override
 	public void registerIcons(IconRegister icon) {
 		this.itemIcon = icon.registerIcon(WorldChangersCore.modid + ":" + this.textureName);
