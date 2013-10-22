@@ -14,7 +14,7 @@ import worldChangers.TuxCraft.WorldGenUtils;
 
 public class WorldGenVolcano extends WorldGenerator {
 
-	public static final WeightedRandomChestContent[] volcanoDungeonLoot = new WeightedRandomChestContent[] { new WeightedRandomChestContent(Item.saddle.itemID, 0, 1, 2, 8), new WeightedRandomChestContent(Item.redstone.itemID, 0, 1, 8, 6), new WeightedRandomChestContent(Item.diamond.itemID, 0, 1, 2, 3), new WeightedRandomChestContent(Item.ingotIron.itemID, 0, 1, 4, 8), new WeightedRandomChestContent(Item.enderPearl.itemID, 0, 1, 1, 5), new WeightedRandomChestContent(Item.pumpkinPie.itemID, 0, 1, 4, 8), new WeightedRandomChestContent(Item.field_111213_cg.itemID, 0, 1, 1, 4), new WeightedRandomChestContent(Item.field_111216_cf.itemID, 0, 1, 1, 6), new WeightedRandomChestContent(Item.field_111215_ce.itemID, 0, 1, 1, 8), new WeightedRandomChestContent(Item.field_111212_ci.itemID, 0, 1, 1, 8)
+	public static final WeightedRandomChestContent[] volcanoDungeonLoot = new WeightedRandomChestContent[] { new WeightedRandomChestContent(Item.saddle.itemID, 0, 1, 2, 8), new WeightedRandomChestContent(Item.redstone.itemID, 0, 1, 8, 6), new WeightedRandomChestContent(Item.diamond.itemID, 0, 1, 2, 3), new WeightedRandomChestContent(Item.ingotIron.itemID, 0, 1, 4, 8), new WeightedRandomChestContent(Item.enderPearl.itemID, 0, 1, 1, 5), new WeightedRandomChestContent(Item.pumpkinPie.itemID, 0, 1, 4, 8), new WeightedRandomChestContent(Item.horseArmorDiamond.itemID, 0, 1, 1, 4), new WeightedRandomChestContent(Item.horseArmorGold.itemID, 0, 1, 1, 6), new WeightedRandomChestContent(Item.horseArmorIron.itemID, 0, 1, 1, 8), new WeightedRandomChestContent(Item.leash.itemID, 0, 1, 1, 8)
 
 	};
 
